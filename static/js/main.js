@@ -188,3 +188,7 @@ function openInfoWindow(self) {
   Model.currentInfoWindow = self.infowindow;
   Model.currentInfoWindow.open(Model.map, self.marker);
 }
+
+function mapError() {
+  window.alert("Failed to load Google Maps API");
+}
