@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>San Francisco Wiki</title>
+    <link rel="shortcut icon" href="{{url_for('static', filename='imgs/favicon.ico')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="sidebar-content">
+        <h3>San Francisco Wiki</h3>
+        <input type="text" data-bind="textInput: filter" placeholder="Filter"/>
+        <ol data-bind="foreach: listLocations">
+          <li data-bind="text: $data.title"></li>
+        </ol>
+      </div>
+    </div>
+    <div id="map"></div>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+  <script src="{{url_for('static', filename='js/main.js')}}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyA2XTA27SRGO6U0RH7lf6KZEjLpc3UeQW0&callback=initMap" async defer onerror="mapError()"></script>
+</html>
