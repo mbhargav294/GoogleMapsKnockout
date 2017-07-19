@@ -2,17 +2,39 @@
 <html>
   <head>
     <title>San Francisco Wiki</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{{url_for('static', filename='imgs/favicon.ico')}}">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
   </head>
   <body>
-    <div class="sidebar">
-      <div class="sidebar-content">
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-title">
         <h3>San Francisco Wiki</h3>
         <input type="text" data-bind="textInput: filter" placeholder="Filter"/>
-        <ol data-bind="foreach: listLocations">
-          <li data-bind="text: $data.title"></li>
-        </ol>
+        <input type="button" class="buttonFlat" data-bind="click: recenterMap" value="RE-CENTER"/>
+        <input type="button" class="buttonFlat" value="TOGGLE LIST" data-bind="click: toggleItems"/>
+      </div>
+      <div data-bind="if: itemsShown">
+        <div class="sidebar-content" id="style-2">
+          <div data-bind="foreach: listLocations">
+            <div class="card">
+              <div class="card-name">
+                <div data-bind="text: $data.title" class="card-title"></div>
+              </div>
+              <br />
+              <div class="pull-right">
+                <input type="button" class="buttonFlat googleButton" data-bind="click: $data.wiggle" value="SHOW ON MAP"/>
+                <a target="_blank" data-bind="attr: {href: $data.page}" class=""><input type="button" class="buttonFlat googleButton" value="LINK"/></a>
+              </div>
+            </div>
+          </div>
+          <div data-bind="if: itemsAvailable">
+            <div class="card error">
+              Sorry did not find any locations
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div id="map"></div>
