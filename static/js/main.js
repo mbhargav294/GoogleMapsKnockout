@@ -17,7 +17,7 @@ var ViewModel = function() {
   self.itemsShown = ko.observable(Model.itemsShown);
   self.itemsAvailable = ko.computed(function(){
     return self.listLocations().length === 0;
-  })
+  });
   self.toggleItems = function() {
     var shown = self.itemsShown();
     self.itemsShown(!shown);
@@ -39,13 +39,14 @@ var ViewModel = function() {
       return "";
     },
     write: function(value) {
+      var list;
       for(var i = 0; i < Model.places.length; i++) {
         Model.places[i].marker.setMap(null);
       }
       if(value === ""){
         self.listLocations.removeAll();
-        var list = Model.places;
-        for(var i = 0; i < list.length; i++) {
+        list = Model.places;
+        for(i = 0; i < list.length; i++) {
           self.listLocations.push(list[i]);
           list[i].marker.setMap(Model.map);
         }
@@ -53,8 +54,8 @@ var ViewModel = function() {
       else {
         value = value.toLowerCase();
         self.listLocations.removeAll();
-        var list = Model.places;
-        for(var i = 0; i < list.length; i++) {
+        list = Model.places;
+        for(i = 0; i < list.length; i++) {
           if(list[i].title.toLowerCase().indexOf(value) !== -1) {
             self.listLocations.push(list[i]);
             list[i].marker.setMap(Model.map);
@@ -81,7 +82,7 @@ function initMap() {
           ko.applyBindings(ViewModel);
         },
         error: function(xhr, status, errorThrown) {
-          alert("Error loading styles!\nPlease retry..")
+          alert("Error loading styles!\nPlease retry..");
         }
       });
     },
@@ -151,13 +152,13 @@ var WikiPage = function(data, timeout) {
     });
     google.maps.event.addListener(self.marker, 'mousedown', function(self){
       return function() {
-        focusLocation(self);
-      }
+        return focusLocation(self);
+      };
     }(self));
   }, timeout);
   this.wiggle = function() {
-    focusLocation(self);
-  }
+    return focusLocation(self);
+  };
 };
 
 function focusLocation(self) {
@@ -177,7 +178,7 @@ function wiggle(self) {
   setTimeout(function() {
     self.marker.setAnimation(null);
   }, 2800);
-  return true
+  return true;
 }
 
 function openInfoWindow(self) {
