@@ -41,14 +41,14 @@ var ViewModel = function() {
     write: function(value) {
       var list;
       for(var i = 0; i < Model.places.length; i++) {
-        Model.places[i].marker.setMap(null);
+        Model.places[i].marker.setVisible(false);
       }
       if(value === ""){
         self.listLocations.removeAll();
         list = Model.places;
         for(i = 0; i < list.length; i++) {
           self.listLocations.push(list[i]);
-          list[i].marker.setMap(Model.map);
+          list[i].marker.setVisible(true);
         }
       }
       else {
@@ -58,7 +58,7 @@ var ViewModel = function() {
         for(i = 0; i < list.length; i++) {
           if(list[i].title.toLowerCase().indexOf(value) !== -1) {
             self.listLocations.push(list[i]);
-            list[i].marker.setMap(Model.map);
+            list[i].marker.setVisible(true);
           }
         }
       }
